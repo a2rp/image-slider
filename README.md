@@ -1,4 +1,3 @@
-
 ![image](https://github.com/a2rp/image-slider/assets/5670738/3f6b80ba-1cd9-4ea2-a529-a3303b4303c3)
 
 
