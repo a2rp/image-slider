@@ -1,0 +1,148 @@
+*,
+::before,
+::after {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-size: 12px;
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    padding: 30px;
+
+    .main {
+        width: 100%;
+        max-width: 1400px;
+
+        .title {
+            font-size: 32px;
+            font-weight: 900;
+        }
+
+        .autoPlayContainer {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .sliderContainer {
+            margin-top: 30px;
+            height: 450px;
+            background-color: aliceblue;
+            display: flex;
+            justify-content: center;
+
+            .sliderWrapper {
+                border: 1px solid #000;
+                width: 400px;
+                position: relative;
+                overflow: hidden;
+
+                &:hover {
+                    .prev,
+                    .next,
+                    .dotsContainer {
+                        opacity: 0.8;
+                    }
+                }
+
+                .imageContainer {
+                    border: 1px solid #000;
+                    flex: 0 0 400px;
+                    height: 450px;
+
+                    span {
+                        background-color: rgba(0, 0, 0, 0.8);
+                        color: #fff;
+                        width: 50px;
+                        height: 30px;
+                        margin: 5px;
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                    }
+                }
+
+                .prev,
+                .next {
+                    position: absolute;
+                    top: 0;
+                    height: 100%;
+                    background-color: rgba(0, 0, 0, 0.5);
+                    color: #fff;
+                    width: 30px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    cursor: pointer;
+                    opacity: 0;
+                    transition: opacity 0.2s ease, transition 0.2s ease;
+
+                    &:hover {
+                        opacity: 1;
+
+                        .icon {
+                            transform: scale(2);
+                            font-weight: 900;
+                        }
+                    }
+                }
+
+                .prev {
+                    left: 0;
+                }
+
+                .next {
+                    right: 0;
+                }
+
+                .slider {
+                    display: flex;
+                    border: 1px solid #f00;
+                    transition: transform 0.2s ease;
+                }
+
+                .dotsContainer {
+                    position: absolute;
+                    left: 0;
+                    bottom: 15px;
+                    width: 100%;
+                    height: 30px;
+                    background-color: rgba(0, 0, 0, 0.5);
+                    // opacity: 0;
+                    transition: opacity 0.2s ease;
+                    &:hover {
+                        opacity: 1;
+                        background-color: rgba(0, 0, 0, 0.7);
+                    }
+
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    gap: 15px;
+
+                    .dot {
+                        width: 20px;
+                        height: 20px;
+                        border-radius: 50%;
+                        background-color: #000;
+                        color: #fff;
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        font-size: 10px;
+                        cursor: default;
+                        transition: transform 0.3s ease;
+                        cursor: pointer;
+
+                        &:hover {
+                            transform: scale(2);
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
