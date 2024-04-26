@@ -4,7 +4,10 @@ import { GrPrevious, GrNext } from "react-icons/gr";
 
 const ImageSlider = () => {
     const sliderRef = useRef(null);
+    const [totalSlides,] = useState(5);
     const [countSlides, setCountSlides] = useState(0);
+    const [autoPlay, setAutoPlay] = useState(false);
+    const [autoPlayFlag, setAutoPlayFlag] = useState(false);
 
     const handlePreviousClick = () => {
         let value = countSlides;
@@ -13,7 +16,7 @@ const ImageSlider = () => {
             value = -4;
         }
         setCountSlides(value);
-        // console.log(value);
+        console.log(value);
         const slider = sliderRef.current;
         slider.style.cssText = `transform: translateX(${400 * value}px);`;
     };
@@ -31,15 +34,33 @@ const ImageSlider = () => {
     };
 
     const handleDotClick = (value) => {
-        setCountSlides(value - 1);
+        setCountSlides(value);
         const slider = sliderRef.current;
-        slider.style.cssText = `transform: translateX(${400 * ((value - 1) * (- 1))}px);`;
+        slider.style.cssText = `transform: translateX(${400 * value}px);`;
     };
+
+    useEffect(() => {
+        const timeout = setTimeout(() => {
+            if (autoPlay === false) return;
+            setAutoPlayFlag(autoPlayFlag => !autoPlayFlag);
+            handlePreviousClick();
+        }, 1000);
+        return () => clearTimeout(timeout);
+    }, [autoPlayFlag]);
 
     return (
         <div className={styles.container}>
             <div className={styles.main}>
                 <div className={styles.title}>Image Slider</div>
+
+                <div className={styles.autoPlayContainer}>
+                    <input
+                        id="imageSliderAutoPlay"
+                        type="checkbox"
+                        value={autoPlay}
+                        onChange={() => { setAutoPlay(!autoPlay); setAutoPlayFlag(!autoPlayFlag); setCountSlides(0); }} />
+                    <label htmlFor="imageSliderAutoPlay">Auto play</label>
+                </div>
 
                 <div className={styles.sliderContainer}>
                     <div className={styles.sliderWrapper}>
@@ -71,11 +92,11 @@ const ImageSlider = () => {
                         ><GrNext className={styles.icon} /></div>
 
                         <div className={styles.dotsContainer}>
-                            <div className={`${styles.dot} dot1`} onClick={() => handleDotClick(1)}>1</div>
-                            <div className={`${styles.dot} dot2`} onClick={() => handleDotClick(2)}>2</div>
-                            <div className={`${styles.dot} dot3`} onClick={() => handleDotClick(3)}>3</div>
-                            <div className={`${styles.dot} dot4`} onClick={() => handleDotClick(4)}>4</div>
-                            <div className={`${styles.dot} dot5`} onClick={() => handleDotClick(5)}>5</div>
+                            <div className={`${styles.dot} dot1`} onClick={() => handleDotClick(0)}>1</div>
+                            <div className={`${styles.dot} dot2`} onClick={() => handleDotClick(-1)}>2</div>
+                            <div className={`${styles.dot} dot3`} onClick={() => handleDotClick(-2)}>3</div>
+                            <div className={`${styles.dot} dot4`} onClick={() => handleDotClick(-3)}>4</div>
+                            <div className={`${styles.dot} dot5`} onClick={() => handleDotClick(-4)}>5</div>
                         </div>
                     </div>
                 </div>
