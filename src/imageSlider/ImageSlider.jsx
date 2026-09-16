@@ -16,7 +16,6 @@ const ImageSlider = () => {
             value = -4;
         }
         setCountSlides(value);
-        console.log(value);
         const slider = sliderRef.current;
         slider.style.cssText = `transform: translateX(${400 * value}px);`;
     };
