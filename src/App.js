@@ -1,12 +1,18 @@
-import React from 'react'
-import ImageSlider from './imageSlider'
-import Footer from './Footer'
+import ImageSlider from "./imageSlider";
+import Footer from "./Footer";
+import Header from "./Header";
+import ScrollToTop from "./ScrollToTop";
 
 const App = () => {
     return (
-        <div><ImageSlider /><Footer /></div>
+        <>
+            <Header />
+            <ImageSlider />
+            <ScrollToTop />
+            <Footer />
+        </>
     )
 }
 
-export default App
+export default App;
 
