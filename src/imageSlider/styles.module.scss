@@ -131,3 +131,12 @@
     .dot { min-width: 28px; padding: 0 4px; }
     .about { padding: 22px; }
 }
+
+@media (prefers-reduced-motion: reduce) {
+    .slider,
+    .playButton,
+    .arrow,
+    .dot {
+        transition: none;
+    }
+}

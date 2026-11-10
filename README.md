@@ -5,7 +5,9 @@ A responsive React image slider with local image assets, manual navigation, slid
 ## Features
 
 - Responsive percentage-based slide movement
-- Previous, next, dot, and autoplay controls
+- Previous, next, and slide selection controls
+- Optional autoplay that stops when the carousel receives focus or the pointer hovers over it
+- Reduced-motion support for slide transitions and page scrolling
 - Local image assets with accessible labels
 - Fixed responsive header, icon-only footer links, and go-to-top button
 

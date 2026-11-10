@@ -22,10 +22,11 @@ const ImageSlider = () => {
 
     const previous = () => setCurrent((value) => (value - 1 + slides.length) % slides.length);
     const next = () => setCurrent((value) => (value + 1) % slides.length);
+    const pauseAutoPlay = () => setAutoPlay(false);
 
     return (
         <main className={styles.container} id="slider">
-            <section className={styles.main} aria-labelledby="slider-title">
+            <section className={styles.main} aria-labelledby="slider-title" aria-roledescription="carousel" onFocusCapture={pauseAutoPlay}>
                 <div className={styles.intro}>
                     <p className={styles.eyebrow}>Responsive visual component</p>
                     <h1 id="slider-title">Image Slider</h1>
@@ -36,13 +37,13 @@ const ImageSlider = () => {
                         {autoPlay ? <FiPause aria-hidden="true" /> : <FiPlay aria-hidden="true" />}
                         {autoPlay ? "Pause autoplay" : "Start autoplay"}
                     </button>
-                    <span className={styles.counter} aria-live="polite">{String(current + 1).padStart(2, "0")} / {String(slides.length).padStart(2, "0")}</span>
+                    <span className={styles.counter} aria-live={autoPlay ? "off" : "polite"} aria-atomic="true">{String(current + 1).padStart(2, "0")} / {String(slides.length).padStart(2, "0")}</span>
                 </div>
                 <div className={styles.sliderContainer}>
-                    <div className={styles.sliderWrapper}>
+                    <div className={styles.sliderWrapper} onMouseEnter={pauseAutoPlay}>
                         <div className={styles.slider} style={{ transform: `translateX(-${current * 100}%)` }}>
                             {slides.map((slide, index) => (
-                                <article className={styles.imageContainer} key={slide.src}>
+                                <article className={styles.imageContainer} key={slide.src} role="group" aria-roledescription="slide" aria-label={`Slide ${index + 1} of ${slides.length}`} aria-hidden={index !== current}>
                                     <img src={slide.src} alt={slide.alt} />
                                     <div className={styles.caption}>
                                         <span>Slide {String(index + 1).padStart(2, "0")}</span>
@@ -54,9 +55,9 @@ const ImageSlider = () => {
                         </div>
                         <button className={`${styles.arrow} ${styles.previous}`} type="button" onClick={previous} aria-label="Previous slide"><FiChevronLeft aria-hidden="true" /></button>
                         <button className={`${styles.arrow} ${styles.next}`} type="button" onClick={next} aria-label="Next slide"><FiChevronRight aria-hidden="true" /></button>
-                        <div className={styles.dotsContainer} role="tablist" aria-label="Choose slide">
+                        <div className={styles.dotsContainer} role="group" aria-label="Choose a slide">
                             {slides.map((slide, index) => (
-                                <button className={`${styles.dot} ${index === current ? styles.active : ""}`} type="button" key={slide.src} onClick={() => setCurrent(index)} aria-label={`Go to slide ${index + 1}`} aria-selected={index === current} role="tab">
+                                <button className={`${styles.dot} ${index === current ? styles.active : ""}`} type="button" key={slide.src} onClick={() => setCurrent(index)} aria-label={`Go to slide ${index + 1}`} aria-pressed={index === current}>
                                     {String(index + 1).padStart(2, "0")}
                                 </button>
                             ))}
